@@ -4,19 +4,40 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
+<!--    <parent>
         <groupId>com.levin.commons</groupId>
         <artifactId>simple-dao-parent</artifactId>
         <version>2.2.23-SNAPSHOT</version>
-    </parent>
+    </parent>-->
 
-    <artifactId>simple-dao-codegen</artifactId>
+
+    <groupId>com.levin.commons</groupId>
+    <artifactId>code-codegen</artifactId>
+
+    <version>2.2.23-SNAPSHOT</version>
 
     <packaging>maven-plugin</packaging>
 
     <properties>
+        <levin.simple-dao.version>${project.version}</levin.simple-dao.version>
+        <levin.service-support.version>1.1.21-SNAPSHOT</levin.service-support.version>
+
+        <levin.simple-dao.groupId>com.github.Levin-Li.simple-dao</levin.simple-dao.groupId>
+        <levin.service-support.groupId>com.github.Levin-Li</levin.service-support.groupId>
+
         <mavenVersion>3.6.3</mavenVersion>
+
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
     </properties>
+
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
 
 
     <dependencyManagement>
@@ -28,9 +49,23 @@
     <dependencies>
 
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>${levin.simple-dao.groupId}</groupId>
             <artifactId>simple-dao-annotations</artifactId>
-            <version>${project.version}</version>
+            <version>${levin.simple-dao.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>${levin.service-support.groupId}</groupId>
+            <artifactId>service-support</artifactId>
+            <version>${levin.service-support.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.16</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -94,6 +129,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
+            <version>5.2.4.RELEASE</version>
         </dependency>
 
 
@@ -137,22 +173,26 @@
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
+            <version>2.3.30</version>
         </dependency>
 
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-annotations</artifactId>
             <scope>compile</scope>
+            <version>2.1.6</version>
         </dependency>
 
         <dependency>
             <groupId>javax.persistence</groupId>
             <artifactId>javax.persistence-api</artifactId>
+            <version>2.2</version>
         </dependency>
 
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
+            <version>2.0.1.Final</version>
         </dependency>
 
         <dependency>
@@ -164,6 +204,7 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
         </dependency>
 
         <dependency>
@@ -187,13 +228,14 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-plugin-plugin</artifactId>
+                <version>3.5.2</version>
 
                 <inherited>true</inherited>
 
                 <executions>
                     <execution>
                         <id>default-descriptor</id>
-                        <phase>compile</phase>
+                        <phase>prepare-package</phase>
                         <goals>
                             <goal>descriptor</goal>
                         </goals>
